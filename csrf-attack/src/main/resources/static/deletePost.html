@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>deletePost</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        function deletePost() {
+            $('form').attr('action', 'http://localhost:8081/post/' + document.getElementById("postId").value);
+        }
+    </script>
+</head>
+<body>
+<h3>删除帖子</h3>
+
+<form name="myfrom" id="myform" method="post" action="" onsubmit="deletePost();">
+    帖子编号 ： <input type="text" id="postId"/>
+    <input type="hidden" name="_method" value="delete"/>
+    <input type="submit" value="测试删除帖子">
+</form>
+</body>
+</html>

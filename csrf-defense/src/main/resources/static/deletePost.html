@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>deletePost</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        function deletePost() {
+            var url = '/post/' + document.getElementById("postId").value;
+            var csrf_token = document.cookie.replace(/(?:(?:^|.*;\s*)csrf_token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+            console.log('csrf_token=' + csrf_token);
+            $.ajax({
+                type: "post",//请求方式
+                url: url,  //发送请求地址
+                timeout: 30000,//超时时间：30秒
+                data: {
+                    "_method": "delete",
+                    "csrf_token": hash(csrf_token) // 对csrf_token进行hash加密
+                },
+                dataType: "json",//设置返回数据的格式
+                success: function (result) {
+                    if (result.message == "success") {
+//                    window.location.href = "index.html";
+                        $("#result").text("删除成功");
+                    } else {
+                        $("#result").text("删除失败");
+                    }
+                },
+                error: function () { //请求出错的处理
+                    $("#result").text("请求出错");
+                }
+            });
+        }
+
+        // javascript的String到int(32位)的hash算法
+        function hash(str) {
+            var hash = 0;
+            if (str.length == 0) return hash;
+            for (i = 0; i < str.length; i++) {
+                char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash; // Convert to 32bit integer
+            }
+            return hash;
+        }
+    </script>
+</head>
+<body>
+<h3>删除帖子</h3>
+帖子编号 ： <input type="text" id="postId"/>
+<button onclick="deletePost();">deletePost</button>
+
+<br/>
+<br/>
+<br/>
+<div>
+    <p id="result"></p>
+</div>
+</body>
+</html>
