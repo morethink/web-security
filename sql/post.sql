@@ -13,6 +13,8 @@ File Encoding         : 65001
 Date: 2018-01-04 16:07:37
 */
 
+USE post;
+
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
