@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.morethink</groupId>
-    <artifactId>csrf-defense</artifactId>
+    <artifactId>csrf-attack</artifactId>
     <version>1.0</version>
-    <!--<packaging>jar</packaging>-->
+    <packaging>jar</packaging>
 
     <name>csrf-defense</name>
     <description>Demo project for Spring Boot</description>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>login</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            type: "get",
+            url: "/post/7",
+            timeout: 30000,
+            dataType: "json",
+            success: function (result) {
+                if (result.message == "success") {
+                    $("#result").html(result.data.content);
+                } else {
+                    $("#result").html("Not FOUND");
+                }
+            },
+            error: function () {
+                $("#result").html("请求出错");
+            }
+        });
+    });
+</script>
+</head>
+<body>
+<div>
+    <p id="result"></p>
+</div>
+</body>
+</html>

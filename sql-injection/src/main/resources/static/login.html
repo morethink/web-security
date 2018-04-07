@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>login</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+    function loginWithoutSQLInjection() {
+        $.ajax({
+            type: "post",
+            url: "/user/loginWithoutSQLInjection",
+            timeout: 30000,
+            data: {
+                "username": $('#username1').val(),
+                "password": $("#password1").val(),
+            },
+            dataType: "json",
+            success: function (result) {
+                if (result.message == "success") {
+                    $("#result1").text("登录成功，执行的SQL为："+result.data.sql);
+                } else {
+                    $("#result1").text("用户名或者密码错误，执行的SQL为："+result.data.sql);
+                }
+            },
+            error: function () {
+                $("#result1").text("请求出错");
+            }
+        });
+    }
+
+    function loginWithSQLInjection() {
+        $.ajax({
+            type: "post",
+            url: "/user/loginWithSQLInjection",
+            timeout: 30000,
+            data: {
+                "username": $('#username2').val(),
+                "password": $("#password2").val(),
+            },
+            dataType: "json",
+            success: function (result) {
+                if (result.message == "success") {
+                    $("#result2").text("登录成功，执行的SQL为："+result.data.sql);
+
+                } else {
+                    $("#result2").text("用户名或者密码错误，执行的SQL为："+result.data.sql);
+                }
+            },
+            error: function () {
+                $("#result2").text("请求出错");
+            }
+        });
+    }
+
+</script>
+</head>
+<body>
+<h1>预编译参数，预防SQL注入</h1>
+<form id="form1" method="post">
+    username : <input type="text" name="username" id="username1"/><br>
+    password : <input type="text" name="password" id="password1">
+    <p>
+        <input type="button" onclick="loginWithoutSQLInjection()" value="login">
+    </p>
+</form>
+
+<div>
+    <p id="result1"></p>
+</div>
+<h1>拼接字符串，发生SQL注入</h1>
+<form id="form2" method="post">
+    username : <input type="text" name="username" id="username2"/><br>
+    password : <input type="text" name="password" id="password2">
+    <p>
+        <input type="button" onclick="loginWithSQLInjection()" value="login">
+    </p>
+</form>
+
+<div>
+    <p id="result2"></p>
+</div>
+
+</body>
+</html>
