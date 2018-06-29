@@ -42,4 +42,10 @@ public class UserAction {
         }
         return ResultUtil.errorResult("", map);
     }
+
+    @RequestMapping("/test")
+    public Result test(User user,String us) {
+        System.out.println(us);
+        return ResultUtil.errorResult("", user);
+    }
 }
